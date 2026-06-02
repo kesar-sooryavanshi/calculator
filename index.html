@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="A premium, modern calculator with glassmorphism design, dark/light mode, and full keyboard support." />
+  <title>Calc — Premium Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Ambient gradient orbs -->
+  <div class="ambient" aria-hidden="true">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+  </div>
+
+  <main class="app" role="main">
+    <div class="card" role="region" aria-label="Calculator">
+
+      <!-- ── Top bar ─────────────────────────────────────────────── -->
+      <header class="topbar">
+        <span class="topbar-label">Calc</span>
+        <div class="topbar-actions">
+          <button id="btn-history" class="icon-btn" aria-label="Toggle history" aria-expanded="false" aria-controls="history-panel" title="History (H)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </button>
+          <button id="btn-theme" class="icon-btn" aria-label="Toggle theme" title="Toggle theme (T)">
+            <!-- Moon icon shown in dark, Sun icon shown in light -->
+            <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- ── History panel ─────────────────────────────────────────── -->
+      <aside id="history-panel" class="history-panel" aria-label="Calculation history" aria-hidden="true">
+        <div class="history-header">
+          <span class="history-title">History</span>
+          <button id="btn-clear-history" class="text-btn" aria-label="Clear all history">Clear</button>
+        </div>
+        <ul id="history-list" class="history-list" role="list" aria-live="polite">
+          <li class="history-empty">No calculations yet</li>
+        </ul>
+      </aside>
+
+      <!-- ── Display ────────────────────────────────────────────────── -->
+      <section class="display" aria-label="Calculator display">
+        <div id="display-expression" class="display-expression" aria-label="Expression" role="status"></div>
+        <div id="display-current"    class="display-current"    aria-label="Current value" aria-live="polite" role="status">0</div>
+      </section>
+
+      <!-- ── Keypad ─────────────────────────────────────────────────── -->
+      <section class="keypad" aria-label="Calculator buttons">
+
+        <!-- Row 1 -->
+        <button class="key key-util"     data-action="clear"    id="key-ac"  aria-label="All clear">AC</button>
+        <button class="key key-util"     data-action="delete"   id="key-del" aria-label="Delete last character">
+          <!-- Backspace SVG -->
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg>
+        </button>
+        <button class="key key-util"     data-action="percent"  id="key-pct" aria-label="Percent">%</button>
+        <button class="key key-operator" data-op="÷"            id="key-div" aria-label="Divide">÷</button>
+
+        <!-- Row 2 -->
+        <button class="key key-number" data-num="7" aria-label="7">7</button>
+        <button class="key key-number" data-num="8" aria-label="8">8</button>
+        <button class="key key-number" data-num="9" aria-label="9">9</button>
+        <button class="key key-operator" data-op="×" id="key-mul" aria-label="Multiply">×</button>
+
+        <!-- Row 3 -->
+        <button class="key key-number" data-num="4" aria-label="4">4</button>
+        <button class="key key-number" data-num="5" aria-label="5">5</button>
+        <button class="key key-number" data-num="6" aria-label="6">6</button>
+        <button class="key key-operator" data-op="-" id="key-sub" aria-label="Subtract">−</button>
+
+        <!-- Row 4 -->
+        <button class="key key-number" data-num="1" aria-label="1">1</button>
+        <button class="key key-number" data-num="2" aria-label="2">2</button>
+        <button class="key key-number" data-num="3" aria-label="3">3</button>
+        <button class="key key-operator" data-op="+" id="key-add" aria-label="Add">+</button>
+
+        <!-- Row 5 -->
+        <button class="key key-number key-zero" data-num="0" aria-label="0">0</button>
+        <button class="key key-number" data-num="." aria-label="Decimal point">.</button>
+        <button class="key key-equals" data-action="equals" id="key-eq" aria-label="Equals">=</button>
+
+      </section>
+
+      <!-- Keyboard hint -->
+      <p class="kb-hint" aria-hidden="true">Keyboard supported &nbsp;·&nbsp; <kbd>H</kbd> history &nbsp;·&nbsp; <kbd>T</kbd> theme</p>
+    </div>
+  </main>
+
+  <script src="index.js" type="module"></script>
+</body>
+</html>
